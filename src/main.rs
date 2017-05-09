@@ -1,4 +1,4 @@
-/* 
+/*
  * */
 use std::io;
 
@@ -7,7 +7,7 @@ enum Entity {
     Player,
     Wall,
     Crate,
-    Floor
+    Floor,
 }
 
 struct State {
@@ -17,9 +17,9 @@ struct State {
 
 impl State {
     fn new() -> Self {
-        State{
+        State {
             board: [Entity::Floor; 100],
-            player_pos: (-1, -1)
+            player_pos: (-1, -1),
         }
     }
 
@@ -33,7 +33,7 @@ impl State {
                     &Entity::Player => print!("@"),
                     &Entity::Wall => print!("#"),
                     &Entity::Crate => print!("o"),
-                    &Entity::Floor => print!(" ")
+                    &Entity::Floor => print!(" "),
                 }
             }
             print!("\n");
@@ -44,11 +44,14 @@ impl State {
         let mut state = State::new();
         for i in 0..100 {
             state.board[i] = match x.chars().nth(i).unwrap() {
-                '@' => {state.player_pos = ((i % 10) as i32, (i / 10) as i32); Entity::Player },
+                '@' => {
+                    state.player_pos = ((i % 10) as i32, (i / 10) as i32);
+                    Entity::Player
+                }
                 '#' => Entity::Wall,
                 'o' => Entity::Crate,
                 ' ' => Entity::Floor,
-                _ => return Option::None
+                _ => return Option::None,
             }
         }
         return Option::Some(state);
@@ -57,14 +60,14 @@ impl State {
     fn move_player(&mut self, offset: (i32, i32)) {
         self.board[Self::to_index(self.player_pos)] = Entity::Floor;
         self.player_pos = match (self.player_pos, offset) {
-            ((x, y), (x2, y2)) => (x + x2, y + y2)
+            ((x, y), (x2, y2)) => (x + x2, y + y2),
         };
         self.board[Self::to_index(self.player_pos)] = Entity::Player;
     }
 
     fn to_index(p: (i32, i32)) -> usize {
         match p {
-            (x, y) => (x + y * 10) as usize
+            (x, y) => (x + y * 10) as usize,
         }
     }
 }
@@ -79,7 +82,8 @@ fn main() {
                                  #        #\
                                  #        #\
                                  #        #\
-                                 ##########").unwrap();
+                                 ##########")
+            .unwrap();
 
     loop {
         state.print();
@@ -90,7 +94,7 @@ fn main() {
             "a\n" => state.move_player((-1, 0)),
             "s\n" => state.move_player((0, 1)),
             "d\n" => state.move_player((1, 0)),
-            _   => ()
+            _ => (),
         };
     }
 }
