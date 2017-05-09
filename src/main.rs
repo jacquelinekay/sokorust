@@ -3,6 +3,8 @@
 use std::io;
 use std::mem;
 
+mod handle_vector;
+
 const width: usize = 10;
 const height: usize = 10;
 
@@ -130,6 +132,7 @@ fn main() {
                                  ##########")
             .unwrap();
 
+            return;
     loop {
         print!("{}[2J", 27 as char);
         state.print();
