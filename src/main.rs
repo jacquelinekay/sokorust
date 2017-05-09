@@ -2,6 +2,8 @@
  * */
 use std::io;
 
+const width = 100;
+
 #[derive (Copy, Clone)]
 enum Entity {
     Player,
