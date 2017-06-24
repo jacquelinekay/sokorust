@@ -34,7 +34,7 @@ impl<T> Data<T> {
 fn t0() {
     let mut d = Data::<i32>::new();
     assert!(d.is_empty() == true);
-    
+
     d.push(100);
     assert!(d.is_empty() == false);
 }
